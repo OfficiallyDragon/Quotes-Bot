@@ -1,10 +1,24 @@
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('./config.json');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
 
 client.once(Events.ClientReady, (readyClient) => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+});
+
+client.on(Events.MessageCreate, async (message) => {
+	if (!message || message.author?.bot) return;
+
+	const targetId = reactionChannelId || '986667448449241129';
+	if (message.channel?.id === targetId) {
+		try {
+			await message.react('⬆️');
+			await message.react('⬇️');
+		} catch (err) {
+			console.error('Failed to add reactions:', err);
+		}
+	}
 });
 
 client.login(token);
