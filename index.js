@@ -10,7 +10,7 @@ client.once(Events.ClientReady, (readyClient) => {
 client.on(Events.MessageCreate, async (message) => {
 	if (!message || message.author?.bot) return;
 
-	const targetId = reactionChannelId || '986667448449241129';
+	const targetId = reactionChannelId = '986667448449241129';
 	if (message.channel?.id === targetId) {
 		try {
 			await message.react('⬆️');
